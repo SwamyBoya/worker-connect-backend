@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # ================= DATABASE CONFIG =================
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///workerconnect.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///workerconnect_new.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
