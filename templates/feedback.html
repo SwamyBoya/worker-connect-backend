@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin – Feedback</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; padding: 20px; }
+        .container { background: #fff; padding: 25px; border-radius: 10px; max-width: 900px; margin: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; border-bottom: 1px solid #ccc; text-align: center; }
+        th { background: #007BFF; color: white; }
+        tr:hover { background: #f1f1f1; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>User Feedback</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Worker</th>
+                <th>Rating</th>
+                <th>Comments</th>
+            </tr>
+            {% for f in feedback %}
+            <tr>
+                <td>{{ f.id }}</td>
+                <td>{{ f.customer_name }}</td>
+                <td>{{ f.worker_name }}</td>
+                <td>{{ f.rating }}</td>
+                <td>{{ f.comments }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
