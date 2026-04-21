@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # ================= DATABASE CONFIG =================
 database_url = os.environ.get("DATABASE_URL", "sqlite:///workerconnect_new.db")
-
+print("DATABASE USED:", database_url)
 # Render uses 'postgres://' but SQLAlchemy requires 'postgresql://'
 if database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
