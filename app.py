@@ -107,15 +107,13 @@ def login():
 @app.route("/workers", methods=["GET"])
 def get_workers():
     name = request.args.get("name")
-    availability = request.args.get("availability")
     skill = request.args.get("skill")
 
-    query = User.query.filter_by(role="worker")
+    # Only show available workers by default
+    query = User.query.filter_by(role="worker", availability="Available")
 
     if name:
         query = query.filter(User.name.ilike(f"%{name}%"))
-    if availability:
-        query = query.filter_by(availability=availability)
     if skill:
         query = query.filter(User.skill.ilike(f"%{skill}%"))
 
@@ -140,6 +138,20 @@ def get_workers():
         })
 
     return jsonify(result)
+
+# UPDATE AVAILABILITY
+@app.route("/worker/<int:id>/availability", methods=["PUT"])
+def update_availability(id):
+    data = request.get_json()
+    user = User.query.get(id)
+
+    if not user or user.role != "worker":
+        return jsonify({"message": "Worker not found"}), 404
+
+    user.availability = data.get("availability")
+    db.session.commit()
+
+    return jsonify({"message": "Availability updated successfully"})
 
 
 # BOOK WORKER
@@ -246,7 +258,10 @@ def view_feedback():
 # HOME
 @app.route("/")
 def home():
-    return "Worker Connect Backend Running"
+    return '''
+        <h2>Worker Connect Backend Running</h2>
+        <a href="/admin">Go to Admin Dashboard</a>
+    '''
 
 
 # RUN
